@@ -1,0 +1,61 @@
+#' SORTING DATA
+#'
+#' @param y1  is a score variable
+#' @param y2 is a string variable but in numeric elements
+#' @param ac is an accuracy variable
+#' @param ce is a certainty variable
+#' @param rw rw is a number of rows in dt
+#'
+#' @return sorting Data
+#' @export
+#'
+#' @examples
+#'fac=c(rep("1",6),rep("2",6),rep("3",4))
+#'t=c(0.4,0.42,0.04,0.46,0.08,0.33,0.13,0.003,0.0095,0.44,0.003,0.62,0.15,0.498,0.36,0.464)
+#'i=c(0.06,0.071,0.5,0.14,0.03,0.30,0.45,0.074,0.17,0.28,0.48,0.072,0.62,0.148,0.831,0.761)
+#'f=c(0.46,0.37,0.21,0.31,0.171,0.21,0.39,0.083,0.41,0.42,0.31,0.18,0.29,0.748,0.625,0.551)
+#'dt=data.frame(t,i,f,fac)
+#'sc=(2+dt[,1]-dt[,2]-dt[,3])/3
+#'ac=dt[,1]-dt[,3]
+#'ce=dt[,1]
+# x[,4]=as.character(x[,4])
+#'y1=sc
+#'y1=round(y1,2)
+#'y2=as.character(dt[,4])
+#'rw=nrow(dt)
+#'ff=s_sort(y1,y2,ac,ce,rw)
+#'ff=s_sort(ac,y2,y1,ce,rw)
+#'ff=s_sort(ce,y2,ac,y1,rw)
+#'ff=s_sort(y1,y2,ac,ce,rw)
+#'y1=ff$y1
+#'y2=ff$y2
+#'ac=ff$ac
+#'ce=ff$ce
+#'ff=data.frame(y1,y2,ac,ce)
+#'print(ff)
+s_sort=function(y1,y2,ac,ce,rw)
+{
+  for(i in 1:(rw-1))
+  {
+    for(j in i:(rw-1))
+    {
+      if(y1[i]<y1[j+1])
+      {
+        k=y1[i]
+        y1[i]=y1[j+1]
+        y1[j+1]=k
+        k1=y2[i]
+        y2[i]=y2[j+1]
+        y2[j+1]=k1
+        k2=ac[i]
+        ac[i]=ac[j+1]
+        ac[j+1]=k2
+        k3=ce[i]
+        ce[i]=ce[j+1]
+        ce[j+1]=k3
+      }
+    }
+  }
+  ff=data.frame(y1,y2,ac,ce)
+  # print(ff)
+}
